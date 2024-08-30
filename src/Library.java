@@ -59,7 +59,7 @@ public class Library {
         StringBuilder sb = new StringBuilder();
         for (Book book : books){
             if(book.getAvailable()){
-                sb.append(book.getId()).append(" - ").append(book.getTitle()).append(" - ").append(book.getAvailable() ? "Disponível\n" : "Indisponível\n");
+                sb.append(book.getTitle()).append("(").append(book.getAuthor().getName()).append(")").append(" - ").append(book.getAvailable() ? "Disponível" : "Indisponível").append(" - id:").append(book.getId()).append("\n");
             }
         }
         return sb.toString();
@@ -84,6 +84,26 @@ public class Library {
         return sb.toString();
     }
 
+    public String listLoans() {
+        StringBuilder sb = new StringBuilder();
+        for (Book book : books){
+            if(!book.getAvailable()){
+                sb.append(book.getTitle()).append("(").append(book.getAuthor().getName()).append(")").append(" - ").append(book.getAvailable() ? "Disponível\n" : "Indisponível\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public List<Loan> findManyLoans(Client client){
+        List<Loan> findLoans = new ArrayList<>();
+        for (Loan loan : loans){
+            if(loan.clientId == client.getId()){
+                findLoans.add(loan);
+            }
+        }
+        return findLoans;
+    }
+
     public Client findByEmail(String email){
         for(Client client : clients){
             if(client.getEmail().equals(email)){
@@ -91,5 +111,15 @@ public class Library {
             }
         }
         return null;
+    }
+
+    public String listClients() {
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+        for (Client client : clients){
+            sb.append(count).append(" - ").append(client.getName()).append(" - ").append(client.getEmail()).append("\n");
+            count ++;
+        }
+        return sb.toString();
     }
 }

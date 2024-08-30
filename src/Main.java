@@ -13,7 +13,7 @@ public class Main {
         int op;
 
         do{
-            System.out.println("\nMenu Inicial\n1-Adicionar um livro\n2-Listar livros\n3-Pegar livro emprestado\n4-Registrar Cliente\n5-Sair");
+            System.out.println("\nMenu Inicial\n1-Adicionar um livro\n2-Listar livros\n3-Pegar livro emprestado\n4-Registrar Cliente\n5-Listar Clientes\n6-Listar Empréstimos\n7-Sair ");
             System.out.print("O que deseja fazer: ");
             op = scanner.nextInt();
 
@@ -70,18 +70,26 @@ public class Main {
                     System.out.print("Digite seu e-mail: ");
                     Scanner scannerCreateEmail = new Scanner(System.in);
                     String emailCreate = scannerCreateEmail.nextLine();
-                    System.out.println("Digite seu nome: ");
+                    System.out.print("Digite seu nome: ");
                     Scanner scannerCreateName = new Scanner(System.in);
                     String nameCreate = scannerCreateName.nextLine();
                     Client client = new Client(emailCreate, nameCreate);
                     library.addClients(client);
                     break;
                 case 5:
+                    System.out.println("Clientes registrados:\n");
+                    System.out.println(library.listClients());
+                    break;
+                case 6:
+                    System.out.println("Livros emprestados:\n");
+                    System.out.println(library.listLoans());
+                    break;
+                case 7:
                     System.out.println("Saindo...");
                     break;
                 default:
                     System.out.println("Opção inválida");
             }
-        }while (op != 5);
+        }while (op != 7);
     }
 }
